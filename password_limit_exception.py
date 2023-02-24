@@ -1,6 +1,7 @@
-""" This is a custom exception """
+""" This is a custom exception that returns a string if the length of the password is less than 
+8 characters or greater than 20 characters. """
 
-class PasswordLimitException(Exception):
+class PasswordLimitError(Exception):
     """ your password must be somewhere between 8 to 20 charcters"""
     min_length = 8
     max_length = 20
@@ -10,12 +11,24 @@ class PasswordLimitException(Exception):
         self.length = length
 
     def __str__(self):
-        if self.length > self.max_length:
-            return f'Password length should be no more than {self.max_length} characters long.'
-        else:
-            return f'Password length must be at least {self.min_length} characters long.'
+       return f'Password length {self.length} should be {self.min_length} to {self.max_length} characters long.'
 
-try:
-    raise PasswordLimitException(21)
-except PasswordLimitException as p:
-    print(p)
+def valid_range(length):
+    if length < PasswordLimitError.min_length or length > PasswordLimitError.max_length:
+        raise PasswordLimitError(length)
+
+    return length
+
+if __name__ == '__main__':
+    
+    try:
+        length = int(input('Enter a password length: '))
+    except ValueError:
+        print('ValueError: Must be an integer')
+    else:
+        try:
+            valid_length = valid_range(length)
+        except PasswordLimitError as ple:
+            print(ple)
+        else:
+            print(f'Password length is {length}')

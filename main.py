@@ -1,26 +1,23 @@
-""" This program generates a random password """
-import random as rand
+""" The main program for Random Password Generation """
+import functions as rpg_fun
 
-lowercase = 'abcdefghijklmnopqrstuvwxyz'
-uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-digits = '0123456789'
-special_chars = '!@#$%&*^|()_+-'
-
+# Starts program
 while True:
-    
-    try:
-        print('-- Password Generator --' , 'Choose option:', '1: generate password',
+    print('-- Password Generator --' , 'Choose option:', '1: generate password',
 '2: exit the program', sep='\n') 
 
+    try:
         selected_option = int(input('Your choice: '))
     except ValueError:
-        print('ValueError: Your response should be 1 or 2')
+        print('Invalid Option: Your response should be 1 or 2')
     else:
         if selected_option == 1:
-            # password = generate_password()
-            print('Generated password:', 'password')
-        else:
+            length = rpg_fun.set_password_length()
+            print(type(length))
+            password = rpg_fun.generate_password(length)
+            print('Generated password:', password)
+        elif selected_option == 2:
             print('Bye!')
             break
-
-    
+        else:
+            print('Invalid Option: Your response should be 1 or 2')
